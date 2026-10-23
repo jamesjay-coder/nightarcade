@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e17">
+  <title>NightArcade — Virtual Credits</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-mark">✦</span> NIGHT<span>ARCADE</span>
+    </a>
+    <div class="top-actions">
+      <span class="mode-pill">
+        <span class="live-dot"></span> VIRTUAL CREDITS ONLY
+      </span>
+      <button id="logoutBtn" class="button button-quiet hidden" type="button">
+        Log out
+      </button>
+    </div>
+  </header>
+
+  <main class="shell">
+
+    <section class="sponsor-banner" aria-label="Sponsor">
+      <div>
+        <span class="sponsor-banner-label">SPECIAL THANKS TO OUR SPONSOR</span>
+        <strong>Sponsored by Clark Justin Umpad</strong>
+        <p>Supporting the NightArcade virtual-credit arcade experience.</p>
+      </div>
+      <span class="sponsor-banner-mark">✦</span>
+    </section>
+
+    <section id="authPanel" class="auth-layout">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span> PLAY THE RISE
+        </div>
+        <h1>Catch the climb.<br><span>Beat the crash.</span></h1>
+        <p>
+          A crash-style arcade game built for fun with virtual credits.
+          No deposits. No cash-outs. No real-money play.
+        </p>
+
+        <div class="feature-row">
+          <div><strong>01</strong><span>Sign in securely</span></div>
+          <div><strong>02</strong><span>Play with credits</span></div>
+          <div><strong>03</strong><span>Track your rounds</span></div>
+        </div>
+      </div>
+
+      <div class="panel auth-card">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">YOUR ARCADE PASS</p>
+            <h2 id="authTitle">Welcome back</h2>
+          </div>
+          <div class="mini-icon">↗</div>
+        </div>
+
+        <div class="tab-row">
+          <button id="loginTab" class="tab active" type="button">Log in</button>
+          <button id="signupTab" class="tab" type="button">Create account</button>
+        </div>
+
+        <form id="authForm">
+          <label for="email">Email address</label>
+          <input id="email" type="email" autocomplete="email"
+            placeholder="you@example.com" required>
+
+          <label for="password">Password</label>
+          <input id="password" type="password"
+            autocomplete="current-password" minlength="8"
+            placeholder="At least 8 characters" required>
+
+          <button id="authSubmit" class="button button-primary full" type="submit">
+            Log in <span>→</span>
+          </button>
+        </form>
+
+        <p id="authMessage" class="message" aria-live="polite"></p>
+
+        <p class="fine-print">
+          By continuing, you agree to use this prototype for
+          virtual-credit entertainment only.
+        </p>
+      </div>
+    </section>
+
+    <section id="gamePanel" class="hidden">
+      <div class="welcome-row">
+        <div>
+          <p class="eyebrow">ARCADE / CRASH LAB</p>
+          <h1>Ready for the <span>next round?</span></h1>
+          <p class="muted">
+            Your credits have no cash value and cannot be withdrawn.
+          </p>
+        </div>
+
+        <div class="wallet-card">
+          <span class="wallet-icon">✦</span>
+          <div>
+            <small>VIRTUAL BALANCE</small>
+            <strong id="balance">—</strong>
+          </div>
+          <span class="credit-label">CR</span>
+        </div>
+      </div>
+
+      <div class="game-grid">
+        <section class="panel game-panel">
+          <div class="game-topline">
+            <span class="game-tag">
+              <span class="live-dot"></span> CRASH LAB
+            </span>
+            <span class="round-label" id="roundLabel">READY WHEN YOU ARE</span>
+          </div>
+
+          <div class="chart-wrap">
+            <div class="chart-grid"></div>
+
+            <svg id="chart" viewBox="0 0 800 330"
+              preserveAspectRatio="none" role="img"
+              aria-label="Current virtual game multiplier chart">
+              <defs>
+                <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c5cff" stop-opacity=".38"/>
+                  <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path id="areaPath" d="" fill="url(#areaFill)"></path>
+              <path id="linePath" d="" fill="none" stroke="#a99aff"
+                stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle id="chartDot" cx="36" cy="294" r="6"
+                fill="#fff" stroke="#a99aff" stroke-width="4"></circle>
+            </svg>
+
+            <div class="multiplier" id="multiplier">1.00×</div>
+
+            <div id="crashOverlay" class="crash-overlay hidden">
+              <span>ROUND ENDED</span>
+              <strong id="crashText">CRASHED</strong>
+            </div>
+
+            <div class="chart-caption">
+              <span>START</span>
+              <span>VIRTUAL ROUND · NO CASH VALUE</span>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="bet-control">
+              <label for="betAmount">CREDITS TO PLAY</label>
+              <div class="bet-input-wrap">
+                <button id="betMinus" type="button" aria-label="Decrease credits">−</button>
+                <input id="betAmount" type="number" min="1" max="1000"
+                  step="1" value="25">
+                <button id="betPlus" type="button" aria-label="Increase credits">+</button>
+              </div>
+              <div class="quick-bets">
+                <button data-bet="10" type="button">10</button>
+                <button data-bet="25" type="button">25</button>
+                <button data-bet="50" type="button">50</button>
+                <button data-bet="100" type="button">100</button>
+              </div>
+            </div>
+
+            <div class="play-control">
+              <button id="startBtn" class="button button-primary full" type="button">
+                Start round <span>↗</span>
+              </button>
+              <button id="cashoutBtn" class="button button-cashout full hidden" type="button">
+                Collect virtual credits <span>✦</span>
+              </button>
+              <p id="gameMessage" class="message" aria-live="polite">
+                Choose an amount and start a round.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel stats-panel">
+            <div class="section-title">
+              <h3>Round stats</h3>
+              <span class="subtle-dot">●</span>
+            </div>
+            <div class="stat-row">
+              <span>Last result</span><strong id="lastResult">—</strong>
+            </div>
+            <div class="stat-row">
+              <span>Rounds played</span><strong id="roundCount">0</strong>
+            </div>
+            <div class="stat-row">
+              <span>Credits earned</span><strong id="earned">0</strong>
+            </div>
+            <p class="small-note">
+              Game results are calculated by the server.
+              The chart is only a visual display.
+            </p>
+          </section>
+
+          <section class="panel history-panel">
+            <div class="section-title">
+              <h3>Recent rounds</h3>
+              <span class="history-count" id="historyCount">0</span>
+            </div>
+            <div id="historyList" class="history-list">
+              <p class="empty-state">Your rounds will appear here.</p>
+            </div>
+          </section>
+
+          <section class="responsible-card">
+            <span class="shield">◇</span>
+            <div>
+              <strong>Virtual play only</strong>
+              <p>
+                Credits are simulated points. They cannot be bought,
+                sold, transferred, or redeemed.
+              </p>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <footer>
+      <span>✦ NIGHTARCADE</span>
+      <span>Prototype build · Virtual credits only</span>
+    </footer>
+  </main>
+
+  <div id="welcomeModal" class="sponsor-modal hidden"
+    role="dialog" aria-modal="true" aria-labelledby="sponsorModalTitle">
+    <div class="sponsor-modal-card">
+      <div class="sponsor-modal-icon">✦</div>
+      <p class="sponsor-eyebrow">WELCOME TO NIGHTARCADE</p>
+      <h2 id="sponsorModalTitle">You're in!</h2>
+      <p class="sponsor-modal-copy">
+        Enjoy your virtual arcade experience.
+      </p>
+      <div class="sponsor-modal-credit">
+        <span>PROUDLY SPONSORED BY</span>
+        <strong>Clark Justin Umpad</strong>
+      </div>
+      <button id="closeWelcomeModal" class="button button-primary full" type="button">
+        Let's play <span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
